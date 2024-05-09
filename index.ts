@@ -229,6 +229,11 @@ if (nextButton) {
       resultElement.innerHTML = ""; // Clear previous result
     }
 
-    generateNewQuiz("easy"); // Generate a new quiz with easier questions
+    const resultPercentage = checkAnswers(generalQuiz, "easy"); // Check answers for the general quiz
+    if (resultPercentage > 50) {
+      generateNewQuiz("hard"); // Generate a new quiz with harder questions
+    } else {
+      generateNewQuiz("easy"); // Generate a new quiz with easier questions
+    }
   });
 }
