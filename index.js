@@ -163,6 +163,7 @@ function generateSimpleMathQuiz() {
     return quiz;
 }
 // Function to generate a quiz with 10 hard computer questions
+// Function to generate a quiz with 10 hard computer questions
 function generateHardComputerQuiz() {
     // Sample hard computer quiz questions
     var quiz = [
@@ -176,6 +177,46 @@ function generateHardComputerQuiz() {
             options: ["Central Processing Unit", "Computer Processing Unit", "Central Processor Unit", "Computer Processor Unit"],
             answer: "Central Processing Unit"
         },
+        {
+            question: "What is the main function of RAM in a computer?",
+            options: ["Long-term storage", "Temporary storage", "Processing data", "Displaying graphics"],
+            answer: "Temporary storage"
+        },
+        {
+            question: "Which programming language is commonly used for building web applications?",
+            options: ["Java", "Python", "C++", "JavaScript"],
+            answer: "JavaScript"
+        },
+        {
+            question: "What is the purpose of an operating system?",
+            options: ["Manage hardware resources", "Compile code", "Design user interfaces", "Run antivirus software"],
+            answer: "Manage hardware resources"
+        },
+        {
+            question: "Which company developed the first commercially successful microprocessor?",
+            options: ["Intel", "AMD", "Apple", "IBM"],
+            answer: "Intel"
+        },
+        {
+            question: "What does HTML stand for?",
+            options: ["Hyper Text Markup Language", "Hyperlink and Text Markup Language", "Home Tool Markup Language", "Hyperlinks and Textual Markup Language"],
+            answer: "Hyper Text Markup Language"
+        },
+        {
+            question: "Which of the following is a relational database management system?",
+            options: ["MongoDB", "SQLite", "Redis", "Elasticsearch"],
+            answer: "SQLite"
+        },
+        {
+            question: "What is the purpose of a firewall in computer networks?",
+            options: ["Data encryption", "Preventing unauthorized access", "Routing data packets", "Optimizing network speed"],
+            answer: "Preventing unauthorized access"
+        },
+        {
+            question: "What is the function of an API (Application Programming Interface)?",
+            options: ["Manage user interfaces", "Access web servers", "Interact with databases", "Enable communication between software applications"],
+            answer: "Enable communication between software applications"
+        },
         // Add more hard computer questions
     ];
     return quiz;
@@ -187,6 +228,15 @@ var submitButton = document.getElementById("submit-btn");
 if (submitButton) {
     submitButton.addEventListener("click", function () {
         var resultPercentage = checkAnswers(generalQuiz, "easy"); // Check answers for the general quiz
+        // Update fields with easy quiz result
+        var easyScoreElement = document.getElementById("easy-score");
+        if (easyScoreElement) {
+            easyScoreElement.textContent = "Easy Quiz Score: ".concat(resultPercentage, "%");
+        }
+        var easyPercentageElement = document.getElementById("easy-percentage");
+        if (easyPercentageElement) {
+            easyPercentageElement.textContent = "Easy Quiz Percentage: ".concat(resultPercentage, "%");
+        }
     });
 }
 var nextButton = document.getElementById("next-btn");
@@ -200,8 +250,26 @@ if (nextButton) {
         if (resultPercentage > 50) {
             generateNewQuiz("hard"); // Generate a new quiz with harder questions
         }
+        else if (resultPercentage > 20 && resultPercentage < 50) {
+            generateNewQuiz("easy"); // Generate a new quiz with easy questions
+        }
         else {
-            generateNewQuiz("easy"); // Generate a new quiz with easier questions
+            alert("20% is the minimum qualification of the next quiz!!!");
+        }
+        // Hide the "Next" button after clicking it
+        nextButton.style.display = "none";
+        // Update fields with hard quiz result
+        var hardScoreElement = document.getElementById("hard-score");
+        if (hardScoreElement) {
+            // Calculate hard quiz score and update the field
+            var hardScore = checkAnswers(generalQuiz, "hard");
+            hardScoreElement.textContent = "Hard Quiz Score: ".concat(hardScore);
+            // Calculate hard quiz percentage and update the field
+            var hardPercentageElement = document.getElementById("hard-percentage");
+            if (hardPercentageElement) {
+                var hardPercentage = (hardScore / generalQuiz.length) * 100;
+                hardPercentageElement.textContent = "Hard Quiz Percentage: ".concat(hardPercentage, "%");
+            }
         }
     });
 }
